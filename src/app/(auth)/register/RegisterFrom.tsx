@@ -1,21 +1,22 @@
 "use client";
-
-import { loginSchema, LoginSchema } from "@/lib/schemas/loginSchema";
+import { registerSchema, RegisterSchema } from "@/lib/schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import { Card, CardHeader, CardBody, Button, Input } from "@nextui-org/react";
+
 import React from "react";
 import { useForm } from "react-hook-form";
 import { GiPadlock } from "react-icons/gi";
 
-export default function LoginForm() {
+export default function RegisterFrom() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
     mode: "onTouched",
   });
+
   const onSubmit = (data: any) => {
     console.log(data);
   };
@@ -25,14 +26,22 @@ export default function LoginForm() {
         <div className="flex flex-col items-center gap-2">
           <div className="flex gap-3 items-center justify-center text-secondary">
             <GiPadlock size={30} />
-            <h1 className="text-3xl font-semibold">Login</h1>
+            <h1 className="text-3xl font-semibold">Register</h1>
           </div>
-          <p className="text-neutral-500">Welcome back to NextMatch</p>
+          <p className="text-neutral-500">Welcome to NextMatch</p>
         </div>
       </CardHeader>
       <CardBody>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
+            <Input
+              defaultValue=""
+              label="Name"
+              variant="bordered"
+              {...register("name")}
+              isInvalid={!!errors.name}
+              errorMessage={errors.name?.message}
+            />
             <Input
               defaultValue=""
               label="Email"
@@ -56,7 +65,7 @@ export default function LoginForm() {
               color="secondary"
               type="submit"
             >
-              Login
+              Register
             </Button>
           </div>
         </form>
