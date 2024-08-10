@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { GiPadlock } from "react-icons/gi";
+import { toast } from "react-toastify";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -23,8 +24,12 @@ export default function LoginForm() {
     const result = await signInUser(data);
     if (result.status === "success") {
       router.push("/members");
+      router.refresh();
+      toast.success(result.data as string);
     } else {
-      console.log(result.error);
+      toast.error(result.error as string, {
+        autoClose: 3000,
+      });
     }
   };
   return (
