@@ -7,9 +7,6 @@ import { ActionResult } from "@/types";
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs"
 import { AuthError } from "next-auth";
-import { FaS } from "react-icons/fa6";
-
-
 
 export async function signInUser(data:LoginSchema):Promise<ActionResult<User>>{
     try {
