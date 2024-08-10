@@ -1,4 +1,5 @@
 "use client";
+import { registerUser } from "@/app/actions/authActions";
 import { registerSchema, RegisterSchema } from "@/lib/schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardHeader, CardBody, Button, Input } from "@nextui-org/react";
@@ -11,14 +12,27 @@ export default function RegisterFrom() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    setError,
+    formState: { errors, isValid, isSubmitting },
   } = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
+    // resolver: zodResolver(registerSchema),
     mode: "onTouched",
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: RegisterSchema) => {
+    const result = await registerUser(data);
+    if (result.status === "success") {
+      console.log("User registered successfully");
+    } else {
+      if (Array.isArray(result.error)) {
+        result.error.forEach((e) => {
+          const fieldName = e.path.join(".") as "email" | "name" | "password";
+          setError(fieldName, { message: e.message });
+        });
+      } else {
+        setError("root.serverError", { message: result.error });
+      }
+    }
   };
   return (
     <Card className="w-2/5 mx-auto">
@@ -59,7 +73,13 @@ export default function RegisterFrom() {
               isInvalid={!!errors.password}
               errorMessage={errors.password?.message}
             />
+            {errors.root?.serverError && (
+              <p className="text-danger text-center text-sm">
+                {errors.root.serverError.message}
+              </p>
+            )}
             <Button
+              isLoading={isSubmitting}
               fullWidth
               isDisabled={!isValid}
               color="secondary"
