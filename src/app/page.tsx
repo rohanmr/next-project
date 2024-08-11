@@ -1,9 +1,7 @@
 import { auth, signOut } from "@/auth";
 import { Button } from "@nextui-org/react";
-import Link from "next/link";
 
 import { FaRegSmile } from "react-icons/fa";
-import { json } from "stream/consumers";
 
 export default async function Home() {
   const session = await auth();
