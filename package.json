@@ -14,6 +14,7 @@
     "@nextui-org/react": "^2.2.9",
     "@prisma/client": "^5.18.0",
     "bcryptjs": "^2.4.3",
+    "date-fns": "^3.6.0",
     "framer-motion": "^11.3.21",
     "next": "14.2.5",
     "next-auth": "^5.0.0-beta.20",
@@ -36,7 +37,7 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
-  "prisma":{
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts" 
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   }
 }
