@@ -1,3 +1,4 @@
+"use client";
 import { calculateAge } from "@/lib/util";
 import {
   Button,
@@ -43,7 +44,7 @@ export default function MemberSidebar({ member }: Props) {
           </div>
         </div>
         <Divider className="my-3" />
-        <nav className="flex flex-col p-4 ml-4 text-2xl gap-4">
+        <nav className="flex flex-col p-1 ml-4 text-2xl gap-2">
           {navLinks.map((link) => (
             <Link
               href={link.href}
@@ -65,7 +66,7 @@ export default function MemberSidebar({ member }: Props) {
           href="/members"
           fullWidth
           color="secondary"
-          variant="bordered"
+          variant="ghost"
         >
           Go Back
         </Button>
